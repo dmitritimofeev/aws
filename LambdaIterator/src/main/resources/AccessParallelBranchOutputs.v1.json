@@ -1,0 +1,38 @@
+{
+  "Comment": "An example of the Amazon States Language using a parallel state to execute two branches at the same time.",
+  "StartAt": "Parallel",
+  "States": {
+    "Parallel": {
+      "Type": "Parallel",
+      "Next": "Final State",
+      "Branches": [
+        {
+          "StartAt": "Branch1",
+          "States": {
+            "Branch1": {
+              "Type": "Pass",
+              "Result": "foo",
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "Branch2",
+          "States": {
+            "Branch2": {
+              "Type": "Pass",
+              "Result": "bar",
+              "End": true
+            }
+          }
+        }
+      ]
+    },
+    "Final State": {
+      "Comment": "Output only branch1 result. Filter out branch2",
+      "OutputPath": "$[1]",
+      "Type": "Pass",
+      "End": true
+    }
+  }
+}

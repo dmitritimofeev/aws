@@ -1,0 +1,11 @@
+{
+    "Comment": "Split a single input into several arrays. Iterate through each array in parallel and process each array member. Merge results in a single output.",
+    "StartAt": "SplitInpArray",
+    "States": {
+        "SplitInpArray": {
+            "Type": "Pass",
+            "ResultPath": "$.largeInpArray",
+            "End": true
+        }
+    }
+}

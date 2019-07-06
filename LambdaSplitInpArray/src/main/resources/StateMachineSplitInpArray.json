@@ -1,0 +1,12 @@
+{
+    "Comment": "Split a single input into several arrays. Iterate through each array in parallel and process each array member. Merge results in a single output.",
+    "StartAt": "SplitInpArray",
+    "States": {
+        "SplitInpArray": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-2:292165215614:function:LambdaSplitInpArray",       
+            "End": true
+        }
+
+    }
+}

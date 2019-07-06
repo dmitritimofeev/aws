@@ -1,0 +1,31 @@
+{
+    "Comment": "Use a first chunk from a splitted array as an input for the first parallel branch and a second chunk for the second branch",
+    "StartAt": "SplitInpArray",
+    "States": {
+           "ProcessArraysInParallel": {
+            "Type": "Parallel",
+            "Branches": [
+                {
+                    "StartAt": "ProcessFirstArray",
+                    "InputPath": "$[0][0]",
+                    "States": {
+                        "ProcessFirstArray": {
+                            "Type":"Pass",
+                            "End": true
+                        }
+                    }
+                },
+                {
+                    "StartAt": "ProcessSecondArray",
+                     "InputPath": "$[0][1]",
+                    "States": {
+                        "ProcessSecondArray": {
+                            "Type": "Pass",
+                            "End": true
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

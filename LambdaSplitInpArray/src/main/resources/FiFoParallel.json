@@ -1,0 +1,39 @@
+{
+    "Comment": "Split a single input into several arrays. Iterate through each array in parallel and process each array member. Merge results in a single output.",
+    "StartAt": "SplitInpArray",
+    "States": {
+        "SplitInpArray": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-2:292165215614:function:LambdaSplitInpArray",       
+            "End": true
+        },
+
+  
+        "StartAt":   "ProcessArraysInParallel": {
+            "Type": "Parallel",
+            "End": true,
+            "Branches": [
+                {
+                    "StartAt": "ProcessFirstArray",
+                    "States": {
+                        "ProcessFirstArray": {
+                            "Type":"Pass",
+                           "OutputPath": "$[0].AWS_BATCH_JOB_ARRAY_INDEX" ,
+                            "End": true
+                        }
+                    }
+                },
+                {
+                    "StartAt": "ProcessSecondArray",
+                    "States": {
+                        "ProcessSecondArray": {
+                            "Type": "Pass",
+                            "OutputPath": "$[1].AWS_BATCH_JOB_ARRAY_INDEX" ,
+                            "End": true
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
