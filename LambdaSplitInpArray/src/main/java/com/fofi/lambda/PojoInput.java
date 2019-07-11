@@ -1,22 +1,24 @@
 package com.fofi.lambda;
 
 public  class PojoInput {
-    private  Integer[] inputArray;
+    private  int[] inpArray = null;
+   
     
     public PojoInput(){
     }
-    
-    public PojoInput(Integer[] inputArray){
-    	this.inputArray = inputArray;
-    }
-   
-    public void setInputArray(Integer[] inputArray) {
-        this.inputArray = inputArray;
+
+    public PojoInput(int[] inpArray){
+    	this.inpArray = inpArray;
     }
 
-    public Integer[] getInputArray() {
-        return inputArray;
-    }
+	public int[] getInpArray() {
+		return inpArray;
+	}
+
+
+	public void setInpArray(int[] inpArray) {
+		this.inpArray = inpArray;
+	}
 }
 
 
