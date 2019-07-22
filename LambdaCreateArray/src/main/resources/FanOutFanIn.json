@@ -1,0 +1,44 @@
+{
+  "StartAt": "CreateArray",
+  "States": {
+     "CreateArray": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-2:292165215614:function:LambdaCreateArray",       
+            "Next": "SplitInpArray"
+        }, 
+     "SplitInpArray": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:us-east-2:292165215614:function:LambdaSplitInpArray",       
+            "Next": "ProcessArraysInParallel"
+        }, 
+    "ProcessArraysInParallel": {
+      "Type": "Parallel",
+      "End": true,
+      "Branches": [
+        {
+         "StartAt": "ProcessFirstArray",
+         "States": {
+           "ProcessFirstArray": {       
+             "Type": "Task",
+             "Resource": "arn:aws:lambda:us-east-2:292165215614:function:LambdaProcessArray", 
+             "InputPath": "$.[0]",
+             "End": true
+           }
+         }
+       },
+       {
+         "StartAt": "ProcessSecondArray",
+         "States": {
+           "ProcessSecondArray": {
+
+             "Type": "Task",
+             "Resource": "arn:aws:lambda:us-east-2:292165215614:function:LambdaProcessArray", 
+             "InputPath": "$.[2]",
+             "End": true
+           }
+         }
+       }
+      ]
+    }
+  }
+}
