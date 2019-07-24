@@ -1,10 +1,10 @@
 package com.fofi.lambda;
 
-public class DataItemFromSplitStep {
+public class SplitArrayItemOut {
 
 	private int id ;
-	public DataItemFromSplitStep() {}
-	public DataItemFromSplitStep(int id) {
+	public SplitArrayItemOut() {}
+	public SplitArrayItemOut(int id) {
 		this.id = id;
 	}
 	public int getId() {

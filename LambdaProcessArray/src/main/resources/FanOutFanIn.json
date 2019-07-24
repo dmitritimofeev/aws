@@ -17,7 +17,7 @@
              "Type": "Task",
              "Resource": "arn:aws:lambda:us-east-2:292165215614:function:LambdaProcessArray", 
              "InputPath": "$.[0]",
-             "End": true
+             "Next": "ChooseBasedOnCombinedParallelOutput"
            }
          }
        },
@@ -29,11 +29,66 @@
              "Type": "Task",
              "Resource": "arn:aws:lambda:us-east-2:292165215614:function:LambdaProcessArray", 
              "InputPath": "$.[2]",
-             "End": true
+             "Next": "ChooseBasedOnCombinedParallelOutput"
            }
          }
        }
       ]
+    },
+    "ChooseBasedOnCombinedParallelOutput": {
+    "Type": "Choice",
+  "Choices": [
+    {
+        "Not": {
+          "Variable": "$.type",
+          "StringEquals": "Private"
+        },
+        "Next": "Public"
+    },
+    {
+      "Variable": "$.value",
+      "NumericEquals": 0,
+      "Next": "ValueIsZero"
+    },
+    {
+      "And": [
+        {
+          "Variable": "$.value",
+          "NumericGreaterThanEquals": 20
+        },
+        {
+          "Variable": "$.value",
+          "NumericLessThan": 30
+        }
+      ],
+      "Next": "ValueInTwenties"
     }
+  ],
+  "Default": "DefaultState"
+},
+
+"Public": {
+  "Type" : "Task",
+  "Resource": "arn:aws:lambda:us-east-1:123456789012:function:Foo",
+  "Next": "NextState"
+},
+
+"ValueIsZero": {
+  "Type" : "Task",
+  "Resource": "arn:aws:lambda:us-east-1:123456789012:function:Zero",
+  "Next": "NextState"
+},
+
+"ValueInTwenties": {
+  "Type" : "Task",
+  "Resource": "arn:aws:lambda:us-east-1:123456789012:function:Bar",
+  "Next": "NextState"
+},
+
+"DefaultState": {
+  "Type": "Fail",
+  "Cause": "No Matches!"
+}
   }
 }
+
